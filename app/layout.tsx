@@ -8,7 +8,7 @@ const ibmPlexSerif = IBM_Plex_Serif({
   weight:['400','700'],
   variable: '--font-ibm-plex-serif'
 });
-/*
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -19,7 +19,7 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
-*/
+
 
 export const metadata: Metadata = {
   title: "Horazion",
@@ -44,3 +44,7 @@ export default function RootLayout({
     </html>
   );
 }
+function localFont(arg0: { src: string; variable: string; weight: string; }) {
+  throw new Error("Function not implemented.");
+}
+
