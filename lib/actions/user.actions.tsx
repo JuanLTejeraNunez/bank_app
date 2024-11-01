@@ -4,10 +4,16 @@ import { ID } from "node-appwrite"
 import { createAdminClient, createSessionClient } from "../appwrite"
 import { cookies } from "next/headers"
 import { parseStringify } from "../utils"
+import { SigningOptions } from "crypto"
 
-export const signIn = async () => {
+export const signIn = async ({email, password}: signInProps) => {
     try {
         
+        const { account } = await createAdminClient();
+        const response = await account.createEmailPasswordSession(email,password);
+       
+        return parseStringify(response);
+
     } catch (error) {
         console.error('Error', error)        
     }
@@ -52,3 +58,13 @@ export async function getLoggedInUser() {
     }
   }
   
+
+  export const logoutAccount = async () => {
+    try {
+        const  {account} = await createSessionClient();
+        cookies().delete('appwrite-session');
+        await account.deleteSession('current');
+    } catch (error) {
+        return null;
+    }
+  }
