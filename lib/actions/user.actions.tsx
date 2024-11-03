@@ -5,6 +5,9 @@ import { createAdminClient, createSessionClient } from "../appwrite"
 import { cookies } from "next/headers"
 import { parseStringify } from "../utils"
 import { SigningOptions } from "crypto"
+import { CountryCode, Products } from "plaid"
+import { Languages } from "lucide-react"
+import { plaidClient } from "../plaid"
 
 export const signIn = async ({email, password}: signInProps) => {
     try {
@@ -63,8 +66,27 @@ export async function getLoggedInUser() {
     try {
         const  {account} = await createSessionClient();
         cookies().delete('appwrite-session');
-        await account.deleteSession('current');
+        await account.deleteSession('current');     
     } catch (error) {
         return null;
     }
   }
+
+ export  const  createLinkToken= async (user:User) => {
+try {
+  const TokenParams ={
+    user:{
+      client_user_id: user.$id
+    },    
+    client_name: user.name,
+    products: ['auth'] as Products[],
+    Language:'en',
+    country_codes: ['US'] as CountryCode[],
+  }
+
+  const response = await plaidClient.linkTokenCreate(TokenParams);
+  
+} catch (error) {
+  console.log(error)
+}
+ }
