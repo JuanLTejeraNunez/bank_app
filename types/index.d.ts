@@ -7,7 +7,7 @@ declare type SearchParamProps = {
 
 // ========================================
 
-declare type  = {
+declare type  SignUpParams  = {
   firstName?: string;
   lastName?: string;
   address1?: string;
