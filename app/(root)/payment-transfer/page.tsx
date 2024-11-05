@@ -6,25 +6,24 @@ import React from 'react'
 
 const Transfer = async () => {
   const loggedIn = await getLoggedInUser();
-  const accounts= await getAccounts({
-    userId : loggedIn.$id
+  const accounts = await getAccounts({ 
+    userId: loggedIn.$id 
   })
 
   if(!accounts) return;
-
-  const accountData =  accounts?.data;
+  
+  const accountsData = accounts?.data;
 
   return (
-    <section className="payment-transafer">
-         <HeaderBox 
-         title="Payment Transfer"
-         subtext="Please provide any specific details or notes related to the payment transferer"
-        />
-       
-       <section className="size-full pt-5">
-        <PaymentTransferForm accounts={accounts}       
-        />
-       </section>
+    <section className="payment-transfer">
+      <HeaderBox 
+        title="Payment Transfer"
+        subtext="Please provide any specific details or notes related to the payment transfer"
+      />
+
+      <section className="size-full pt-5">
+        <PaymentTransferForm accounts={accountsData} />
+      </section>
     </section>
   )
 }
